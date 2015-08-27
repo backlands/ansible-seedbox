@@ -1,0 +1,26 @@
+---
+- name: Update and Upgrade
+  apt: upgrade=full
+
+  name: Create primary user for server.
+  user: name=seeder comment="Server User" group=admin
+  authorized_key: user=seeder key={{ item }}
+  with_items: prime_pubKey
+
+- name: Install SSH
+  apt: package=openssh state=present
+# Need to add base config file copy/template
+  notify: restart ssh
+
+- name: Install UFW
+  apt: package=ufw state=present
+
+- name: Grant access to management IPs
+  ufw: rule=allow port=21976 src={{ item }}
+  with_items:
+  - 1.1.1.1
+  - 2.2.2.2
+  - 3.3.3.3
+
+- name: Turn UFW On
+  ufw: state=enabled

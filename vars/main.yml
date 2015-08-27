@@ -1,0 +1,3 @@
+nginx: true
+apache: false
+ruplugins: true

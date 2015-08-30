@@ -1,0 +1,39 @@
+---
+- name: Install rtorrent Dependancies
+  apt: pkg={{ item }} state=present
+  with-items:
+  - libcurl3
+  - ncurses
+  - subversion
+
+- name: Download sources directory
+  command: chdir=~/ "mkdir sources"
+
+- name: Get and Make xmlrpc
+  command: chdir=~/sources/ "svn co https://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/stable xmlrpc"
+  command: chdir=~/sources/xmlrpc "{{ item }}"
+  with-items:
+  - ./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
+  - make
+  - make install
+
+- name: Get and Make libtorrent
+  get_url: url=http://libtorrent.rakshasa.no/downloads/libtorrent-0.13.4.tar.gz dest=~/sources
+  command: chdir=~/sources/ "tar -xzf libtorrent-0.13.4.tar.gz"
+  command: chdir=~/sources/libtorrent-0.13.4 "{{ item }}"
+  with-items:
+  - ./autogen.sh
+  - ./configure --prefix=/usr
+  - make -j2
+  - make install
+
+- name: Get and Make rtorrent
+  get_url: get_url: url=http://libtorrent.rakshasa.no/downloads/rtorrent-0.9.4.tar.gz dest=~/sources
+  command: chdir=~/sources/ "tar -xzf rtorrent-0.9.4.tar.gz"
+  command: chdir=~/sources/rtorrent-0.9.4/ "{{ item }}" 
+  with-items:
+  - ./autogen.sh
+  - .configure --prefix=/usr --with-xmlrpc-c
+  - make -j2
+  - make install
+  - ldconfig

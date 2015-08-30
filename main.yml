@@ -25,6 +25,6 @@
   roles:
   - sickrage
 
-  host: seedboxes
+  hosts: seedboxes
   roles:
   - couchpotato

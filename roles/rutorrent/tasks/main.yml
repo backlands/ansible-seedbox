@@ -1,0 +1,3 @@
+---
+- name: Create and Get ruTorrent Repo
+  git: repo=https://github.com/Novik/ruTorrent.git dest=/etc/www

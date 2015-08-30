@@ -24,3 +24,9 @@
 
 - name: Turn UFW On
   ufw: state=enabled
+
+- name: Install Dependancies
+  apt: pkg={{ item }} state=present
+  with-items:
+  - build-essentials
+  - htop

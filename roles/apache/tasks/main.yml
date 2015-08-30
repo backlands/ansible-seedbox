@@ -1,0 +1,37 @@
+---
+- name: Install Apache
+  apt: pkg={{ item }}
+  - apache2
+  - apache2-utils
+  notify: restart apache
+
+- name: Install Apache Extras
+  apt: pkg={{ item }}
+  - autoconf
+  - ca-certificates
+  - comerr-dev
+  - curl
+  - libcloog-ppl-dev
+  - libcppunit-dev
+  - libcurl3
+  - libncurses5-dev
+  - libterm-readline-gnu-perl
+  - libsigc++-2.0-dev
+  - libperl-dev
+  - libtool 
+  - libxml2-dev
+  - zlib1g-dev
+  notify: restart apache
+
+- name: Install Webserver Modules
+  apache2_module: state=present name={{ item }}
+  with-items:
+  - auth_digest
+  - reqtimeout
+  notify: restart apache
+
+######
+#
+# Add template for apache.conf.
+#
+######

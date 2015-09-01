@@ -4,6 +4,7 @@
     http_port: 80
     scgi_port: 5000
   remote_user: root
+  sudo: yes
   roles:
   - firewall
   - ssh

@@ -1,31 +1,44 @@
 ---
-- hosts: seedboxes
-  vars:
-    http_port: 80
-    scgi_port: 5000
-  remote_user: root
+- name: Setup Security Precautions
+  hosts: seedboxes
+  remote_user: training
   sudo: yes
   roles:
   - firewall
   - ssh
 
+- name: Setup Web Server Dependancies
   hosts: seedboxes
+  vars:
+    apache: true
+    nginx: false
+  remote_user: training
+  sudo: yes
   roles:
   - ssl
   - { role: apache, when: apache == true }
   - { role: nginx, when: nginx == true }
   - php
 
+- name: Setup rTorrent
   hosts: seedboxes
+  remote_user: training
+  sudo: yes
   roles:
   - rtorrent
   - rutorrent
   - { role: ruplugins, when: ruplugins == true }
 
+- name: Setup SickRage
   hosts: seedboxes
+  remote_user: training
+  sudo: yes
   roles:
   - sickrage
 
+- name: Setup Couchpotato
   hosts: seedboxes
+  remote_user: training
+  sudo: yes
   roles:
   - couchpotato

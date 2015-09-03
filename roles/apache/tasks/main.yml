@@ -1,12 +1,14 @@
 ---
 - name: Install Apache
   apt: pkg={{ item }}
+  with_items:
   - apache2
   - apache2-utils
   notify: restart apache
 
 - name: Install Apache Extras
   apt: pkg={{ item }}
+  with_items:
   - autoconf
   - ca-certificates
   - comerr-dev
@@ -24,7 +26,7 @@
 
 - name: Install Webserver Modules
   apache2_module: state=present name={{ item }}
-  with-items:
+  with_items:
   - auth_digest
   - reqtimeout
   notify: restart apache

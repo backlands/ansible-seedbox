@@ -9,9 +9,11 @@
 - name: Make sources directory
   file: path=/home/{{ ansible_env.SUDO_USER }}/sources
         state=directory
+  when: build == true
 
 - name: Get xmlrpc
   shell: 'cd /home/{{ ansible_env.SUDO_USER }}/sources; svn co https://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/stable xmlrpc'
+  when: build == true
 
 - name: Make xmlrpc
   shell: 'cd /home/{{ ansible_env.SUDO_USER }}/sources/xmlrpc; {{ item }}'
@@ -19,10 +21,12 @@
   - ./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
   - make
   - make install
+  when: build == true
 
 - name: Get libtorrent
   unarchive: src=libtorrent-0.13.6.tar.gz
              dest=/home/{{ ansible_env.SUDO_USER }}/sources
+  when: build == true
 
 - name: Make libtorrent
   shell: 'cd /home/{{ ansible_env.SUDO_USER }}/sources/libtorrent-0.13.6; {{ item }}'
@@ -31,10 +35,12 @@
   - ./configure --prefix=/usr
   - make -j2
   - make install
+  when: build == true
 
 - name: Get rtorrent
   unarchive: src=rtorrent-0.9.6.tar.gz
              dest=/home/{{ ansible_env.SUDO_USER }}/sources
+  when: build == true
 
 - name: Make rtorrent
   shell: 'cd /home/{{ ansible_env.SUDO_USER }}/sources/rtorrent-0.9.6; {{ item }}'
@@ -44,6 +50,7 @@
   - make -j2
   - make install
   - ldconfig
+  when: build == true
 
 - name: Configure rtorrent
   template: src={{ item.src }} dest={{ item.dest }}

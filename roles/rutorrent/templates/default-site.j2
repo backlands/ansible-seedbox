@@ -24,12 +24,12 @@ CustomLog /var/log/apache2/access.log combined
 <Location /rutorrent>
 AuthType Digest
 AuthName "rutorrent"
-AuthDigestDomain /var/www/rutorrent/ http://{{ external_ip }}/rutorrent
+AuthDigestDomain /var/www/ruTorrent/ http://{{ external_ip }}/ruTorrent
 
 AuthDigestProvider file
 AuthUserFile /etc/apache2/htpasswd
 Require valid-user
-SetEnv R_ENV "/var/www/rutorrent"
+SetEnv R_ENV "/var/www/ruTorrent"
 </Location>
 
 </VirtualHost>

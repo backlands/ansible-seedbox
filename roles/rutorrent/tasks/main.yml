@@ -6,7 +6,8 @@
   template: src=default-site.j2 dest=/etc/apache2/sites-available/default
 
 - name: Clone ruTorrent git
-  git: repo=https://github.com/Novik/ruTorrent.git dest=/var/www
+  git: repo=https://github.com/Novik/ruTorrent.git dest=/var/www/ruTorrent
+  when: git == true
 
 - name: Set ownership of ruTorrent
   file: path=/var/www/ruTorrent recurse=yes owner=www-data group=www-data mode=755
@@ -15,4 +16,4 @@
   template: src=config.php.j2 dest=/var/www/ruTorrent/conf/config.php
 
 - name: Configure ruTorrent Plugins
-  template: src=plugins.ini.j2 dest=/var/www/ruTorrent/plugins/conf/plugins.ini
+  template: src=plugins.ini.j2 dest=/var/www/ruTorrent/conf/plugins.ini

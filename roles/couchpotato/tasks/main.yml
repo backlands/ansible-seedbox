@@ -1,0 +1,12 @@
+---
+- name: Git CouchPotato
+  git: src=https://github.com/RuudBurger/CouchPotatoServer.git dest=/var/www/CouchPotato
+
+- name: Template out CouchPotato virtual host
+  template: src=couchpotato_site.j2 dest=/etc/apache2/sites-available/couchpotato
+
+- name: Import CouchPotato History
+  copy: src=database.db dest=/var/www/CouchPotato/database.db
+
+- name: Set server ownership  
+  file: path=/var/www/CouchPotato recurse=yes owner=www-data group=www-data mode=755

@@ -1,0 +1,12 @@
+---
+- name: Git SickRage
+  git: src=https://github.com/SiCKRAGETV/SickRage.git dest=/var/www/SickRage
+
+- name: Template out SickRage virtual host
+  template: src=sickrage_site.j2 dest=/etc/apache2/sites-available/sickrage
+
+- name: Import SickRage Database
+  copy: src=cache.db dest=/var/www/SickRage/cache.db
+
+- name: Set server ownership  
+  file: path=/var/www/SickRage recurse=yes owner=www-data group=www-data mode=755

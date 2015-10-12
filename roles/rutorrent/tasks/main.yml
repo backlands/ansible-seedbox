@@ -1,6 +1,10 @@
 ---
 - name: Install rutorrent Dependancies
-  apt: pkg=git state=present
+  apt: pkg={{ item }} state=present
+  with_items:
+  - git
+  - unzip
+  - unrar-free
 
 - name: Template rutorrent virtual host
   template: src=default-site.j2 dest=/etc/apache2/sites-available/default

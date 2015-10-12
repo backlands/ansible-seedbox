@@ -44,3 +44,16 @@
   - make -j2
   - make install
   - ldconfig
+
+- name: Configure rtorrent
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+  - { src: 'rtorrent.j2', dest: '/home/{{ torrent-user }}/rtorrent.rc' }
+  - { src: 'rtorrent.conf.j2', dest: '/etc/init/rtorrent.conf' }
+
+- name: Create rtorrent directories
+  file: path=/home/{{ torrent-user }}/{{ item }} state=directory
+  with_items:
+  - downloads
+  - downloads/watch
+  - downloads/.session

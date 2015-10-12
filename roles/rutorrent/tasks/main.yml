@@ -1,3 +1,18 @@
 ---
-- name: Create and Get ruTorrent Repo
-  git: repo=https://github.com/Novik/ruTorrent.git dest=/etc/www
+- name: Install rutorrent Dependancies
+  apt: pkg=git state=present
+
+- name: Template rutorrent virtual host
+  template: src=default-site.j2 dest=/etc/apache2/sites-available/default
+
+- name: Clone ruTorrent git
+  git: repo=https://github.com/Novik/ruTorrent.git dest=/var/www
+
+- name: Set ownership of ruTorrent
+  file: path=/var/www/ruTorrent recurse=yes owner=www-data group=www-data mode=755
+
+- name: Configure ruTorrent
+  template: src=config.php.j2 dest=/var/www/ruTorrent/conf/config.php
+
+- name: Configure ruTorrent Plugins
+  template: src=plugins.ini.j2 dest=/var/www/ruTorrent/plugins/conf/plugins.ini

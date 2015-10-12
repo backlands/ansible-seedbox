@@ -24,7 +24,7 @@ CustomLog /var/log/apache2/access.log combined
 <Location /rutorrent>
 AuthType Digest
 AuthName "rutorrent"
-AuthDigestDomain /var/www/rutorrent/ http://{{ external-ip }}/rutorrent
+AuthDigestDomain /var/www/rutorrent/ http://{{ external_ip }}/rutorrent
 
 AuthDigestProvider file
 AuthUserFile /etc/apache2/htpasswd

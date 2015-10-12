@@ -48,7 +48,7 @@
 - name: Configure rtorrent
   template: src={{ item.src }} dest={{ item.dest }}
   with_items:
-  - { src: 'rtorrent.j2', dest: '/home/{{ torrent-user }}/rtorrent.rc' }
+  - { src: 'rtorrent.j2', dest: "/home/{{ torrent_user }}/rtorrent.rc" }
   - { src: 'rtorrent.conf.j2', dest: '/etc/init/rtorrent.conf' }
 
 - name: Create rtorrent directories

@@ -1,4 +1,4 @@
 nginx: false
 apache: true
 ruplugins: true
-torrent-user: torrential
+torrent_user: testing

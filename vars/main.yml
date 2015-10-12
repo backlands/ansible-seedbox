@@ -1,3 +1,4 @@
-nginx: true
-apache: false
+nginx: false
+apache: true
 ruplugins: true
+torrent-user: torrential

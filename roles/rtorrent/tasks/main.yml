@@ -55,11 +55,11 @@
 - name: Configure rtorrent
   template: src={{ item.src }} dest={{ item.dest }}
   with_items:
-  - { src: 'rtorrent.j2', dest: "/home/{{ torrent_user }}/.rtorrent.rc" }
+  - { src: 'rtorrent.j2', dest: "/home/{{ seedbox_user }}/.rtorrent.rc" }
   - { src: 'rtorrent.conf.j2', dest: '/etc/init/rtorrent.conf' }
 
 - name: Create rtorrent directories
-  file: path=/home/{{ torrent_user }}/{{ item }} state=directory
+  file: path=/home/{{ seedbox_user }}/{{ item }} state=directory
   with_items:
   - downloads
   - downloads/watch

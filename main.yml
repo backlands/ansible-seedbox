@@ -1,7 +1,7 @@
 ---
 - name: Setup Security Precautions
   hosts: seedboxes
-  remote_user: training
+  remote_user: '{{ seedbox_user }}'
   become: yes
   roles:
   - firewall
@@ -12,7 +12,7 @@
   vars:
     apache: true
     nginx: false
-  remote_user: training
+  remote_user: '{{ seedbox_user }}'
   become: yes
   roles:
   - ssl
@@ -22,7 +22,7 @@
 
 - name: Setup rTorrent
   hosts: seedboxes
-  remote_user: training
+  remote_user: '{{ seedbox_user }}'
   become: yes
   roles:
   - rtorrent
@@ -31,14 +31,14 @@
 
 - name: Setup SickRage
   hosts: seedboxes
-  remote_user: training
+  remote_user: '{{ seedbox_user }}'
   become: yes
   roles:
   - sickrage
 
 - name: Setup Couchpotato
   hosts: seedboxes
-  remote_user: training
+  remote_user: '{{ seedbox_user }}'
   become: yes
   roles:
   - couchpotato
